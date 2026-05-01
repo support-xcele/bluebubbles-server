@@ -35,7 +35,8 @@ export class AppWindow extends Window {
         }
 
         this.instance = new BrowserWindow({
-            title: "Xcelerate iMessage Bridge",
+            title: "Xcelerate Management",
+            backgroundColor: "#0a0908",
             useContentSize: true,
             width: 1080,
             minWidth: 850,
@@ -68,7 +69,7 @@ export class AppWindow extends Window {
             this.instance = null;
         });
 
-        // Prevent the title from being changed from Xcelerate iMessage Bridge
+        // Prevent the title from being changed from Xcelerate Management
         this.instance.on("page-title-updated", evt => {
             evt.preventDefault();
         });

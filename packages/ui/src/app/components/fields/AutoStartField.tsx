@@ -21,7 +21,7 @@ export const AutoStartField = ({ helpText }: AutoStartFieldProps): JSX.Element =
             <FormHelperText>
                 {helpText ?? (
                     <Text>
-                        When enabled, BlueBubbles will start automatically when you login.
+                        When enabled, Xcelerate Management will start automatically when you login.
                     </Text>
                 )}
             </FormHelperText>

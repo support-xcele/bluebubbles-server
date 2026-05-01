@@ -288,10 +288,10 @@ export const NotificationsLayout = (): JSX.Element => {
             <Text fontSize='2xl'>Notifications</Text>
             <Divider orientation='horizontal' />
             <Text fontSize='md' mt={5} mb={5}>
-                BlueBubbles utilizes Google Firebase to deliver notifications to your devices.
+                Xcelerate Management utilizes Google Firebase to deliver notifications to your devices.
                 This includes delivering notifications on Android as well as server URL changes to all clients (Android, Desktop, & Web). 
                 <b>
-                    &nbsp;Failing to configure this will mean server URL changes will not sync with BlueBubbles clients.
+                    &nbsp;Failing to configure this will mean server URL changes will not sync with Xcelerate Management clients.
                 </b>
             </Text>
             {getAlertStatus()}
@@ -303,8 +303,8 @@ export const NotificationsLayout = (): JSX.Element => {
                 <TabPanels>
                     <TabPanel>
                         <Text fontSize='md'>
-                            Using the button below, you can authorize BlueBubbles to manage your Google Cloud Platform account temporarily.
-                            This will allow BlueBubbles to automatically create your Firebase project and setup the necessary configurations
+                            Using the button below, you can authorize Xcelerate Management to manage your Google Cloud Platform account temporarily.
+                            This will allow Xcelerate Management to automatically create your Firebase project and setup the necessary configurations
                             so your Android device can receive notifications.
                         </Text>
                         <Link
@@ -404,7 +404,7 @@ export const NotificationsLayout = (): JSX.Element => {
                                                 to learn how.
                                             </Text>
                                             <Text>
-                                                These configurations enable the BlueBubbles server to send notifications and other
+                                                These configurations enable the Xcelerate Management server to send notifications and other
                                                 messages to all of the clients via Google FCM. Google Play Services is required
                                                 for Android Devices.
                                             </Text>

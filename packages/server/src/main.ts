@@ -37,7 +37,7 @@ const log = getLogger("Main");
 // Only 1 instance is allowed
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
-    console.error("BlueBubbles is already running! Quiting...");
+    console.error("Xcelerate Management is already running! Quitting...");
     app.exit(0);
 } else {
     app.on("second-instance", (_, __, ___) => {

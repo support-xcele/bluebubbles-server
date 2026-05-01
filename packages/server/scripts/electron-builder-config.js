@@ -1,50 +1,53 @@
 // NOTE: All paths are relative to the package.json that will be loading this configuration file.
 // Making them relative to the scripts folder will break the commands
 module.exports = {
-    "productName": "BlueBubbles",
-    "appId": "com.BlueBubbles.BlueBubbles-Server",
+    "productName": "Xcelerate Management",
+    "appId": "com.xcelerate.management",
     "npmRebuild": true,
     "directories": {
         "output": "releases",
         "buildResources": "appResources"
     },
     "asar": true,
+    "asarUnpack": [
+        "node_modules/better-sqlite3/**/*",
+        "node_modules/node-mac-contacts/**/*",
+        "node_modules/node-mac-permissions/**/*",
+        "node_modules/find-process/**/*",
+        "node_modules/ngrok/**/*",
+        "**/*.node"
+    ],
     "extraResources": [
         "appResources"
     ],
     "mac": {
-        "category": "public.app-category.social-networking",
-        "publish": [
-            {
-                "provider": "github",
-                "repo": "bluebubbles-server",
-                "owner": "BlueBubblesApp",
-                "private": false,
-                "channel": "latest",
-                "releaseType": "draft",
-                "vPrefixedTagName": true
-            }
-        ],
+        "category": "public.app-category.business",
         "target": [
             {
                 "target": "dmg",
                 "arch": [
-                    "x64",
+                    "arm64"
+                ],
+            },
+            {
+                "target": "dir",
+                "arch": [
                     "arm64"
                 ],
             }
         ],
         "type": "distribution",
-        "icon": "../../icons/macos/dock-icon.png",
+        "icon": "./icon.icns",
+        "identity": null,
         "darkModeSupport": true,
         "hardenedRuntime": true,
         "notarize": false,
         "entitlements": "./scripts/entitlements.mac.plist",
         "entitlementsInherit": "./scripts/entitlements.mac.plist",
         "extendInfo": {
-            "NSContactsUsageDescription": "BlueBubbles needs access to your Contacts",
-            "NSAppleEventsUsageDescription": "BlueBubbles needs access to run AppleScripts",
-            "NSSystemAdministrationUsageDescription": "BlueBubbles needs access to manage your system",
+            "NSContactsUsageDescription": "Xcelerate Management needs access to your Contacts",
+            "NSAppleEventsUsageDescription": "Xcelerate Management needs access to run AppleScripts",
+            "NSSystemAdministrationUsageDescription": "Xcelerate Management needs access to manage your system",
         },
         "gatekeeperAssess": false,
         "minimumSystemVersion": "10.11.0",
@@ -58,5 +61,4 @@ module.exports = {
         "sign": false,
         "writeUpdateInfo": false
     },
-    // "afterSign": "./scripts/notarize.js"
 };

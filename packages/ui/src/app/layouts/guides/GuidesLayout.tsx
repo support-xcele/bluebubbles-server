@@ -15,7 +15,7 @@ export const GuidesLayout = (): JSX.Element => {
                 <Divider orientation='horizontal' />
                 <Spacer />
                 <Text fontSize='md' my={5}>
-                    In addition to the links in the navigation bar, use the links below to learn more about BlueBubbles and how to use it!
+                    In addition to the links in the navigation bar, use the links below to learn more about Xcelerate Management and how to use it!
                 </Text>
                 <Spacer />
                 <Spacer />
@@ -31,8 +31,8 @@ export const GuidesLayout = (): JSX.Element => {
                                 </LinkOverlay>
                             </Heading>
                             <Text>
-                                Let us help walk you through the full setup of BlueBubbles. This guide will take you step
-                                by step to learn how to setup Google FCM and the BlueBubbles Server.
+                                Let us help walk you through the full setup of Xcelerate Management. This guide will take you step
+                                by step to learn how to setup Google FCM and the Xcelerate Management Server.
                             </Text>
                         </LinkBox>
                     </WrapItem>
@@ -47,7 +47,7 @@ export const GuidesLayout = (): JSX.Element => {
                                 </LinkOverlay>
                             </Heading>
                             <Text>
-                                Read about what BlueBubbles has to offer, how to set it up, and how to use the plethora
+                                Read about what Xcelerate Management has to offer, how to set it up, and how to use the plethora
                                 of features. This documentation also provides more links to other useful articles.
                             </Text>
                         </LinkBox>
@@ -107,11 +107,11 @@ export const GuidesLayout = (): JSX.Element => {
                             </Text>
                             <Heading size='md' my={2}>
                                 <LinkOverlay href='https://bluebubbles.app/web' target='_blank'>
-                                    BlueBubbles Web
+                                    Xcelerate Management Web
                                 </LinkOverlay>
                             </Heading>
                             <Text>
-                                BlueBubbles is not limited to running on your Android device. It can also be run in your
+                                Xcelerate Management is not limited to running on your Android device. It can also be run in your
                                 browser so you can use it on the go! Connect it to this server once setup is complete.
                             </Text>
                         </LinkBox>
@@ -143,7 +143,7 @@ export const GuidesLayout = (): JSX.Element => {
                                 </LinkOverlay>
                             </Heading>
                             <Text>
-                                BlueBubbles was created and is currently run by independent engineers in their free time.
+                                Xcelerate Management was created and is currently run by independent engineers in their free time.
                                 Any sort of support is greatly appreciated! This can be monetary, or just a review.
                             </Text>
                         </LinkBox>

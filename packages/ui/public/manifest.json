@@ -1,6 +1,6 @@
 {
-  "short_name": "Xcelerate",
-  "name": "Xcelerate iMessage Bridge",
+  "short_name": "Xcelerate Management",
+  "name": "Xcelerate Management",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#ee6c30",
+  "background_color": "#0a0908"
 }

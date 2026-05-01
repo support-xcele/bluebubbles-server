@@ -38,8 +38,8 @@ export const AutoStartMethodField = ({ helpText }: AutoStartMethodFieldProps): J
             </Flex>
             <FormHelperText>
                 {helpText ?? (
-                    'Select whether you want the BlueBubbles Server to automatically start when you login to your computer. ' +
-                    'The "Launch Agent" option will let BlueBubbles restart itself, even after a hard crash. If you try to ' +
+                    'Select whether you want the Xcelerate Management Server to automatically start when you login to your computer. ' +
+                    'The "Launch Agent" option will let Xcelerate Management restart itself, even after a hard crash. If you try to ' +
                     'switch away from the "Launch Agent" method, the server may automatically close itself.'
                 )}
             </FormHelperText>
