@@ -132,10 +132,15 @@ export class iCloudInterface {
             throw new Error("displayName is required");
         }
 
-        // TODO(helper-dylib): flip this to true once the dylib at
-        // support-xcele/bluebubbles-server-helper implements the
-        // "set-nickname-info" command. Sourced from env so QA can opt in
-        // without recompiling once a custom dylib is dropped in.
+        // The "set-nickname-info" action is implemented in our forked helper
+        // dylib at support-xcele/bluebubbles-helper (PR #1, branch
+        // feature/set-nickname-info; upstream proposal:
+        // BlueBubblesApp/bluebubbles-helper#57). Once the dylib has been
+        // rebuilt from that branch and dropped at
+        //   /Applications/BlueBubbles.app/Contents/Resources/appResources/private-api/macos11/BlueBubblesHelper.dylib
+        // set BB_HELPER_SUPPORTS_SET_NICKNAME=true in the BB server env to
+        // flip this gate. Sourced from env so QA can opt in without
+        // recompiling once a custom dylib is dropped in.
         const helperSupportsSetNickname =
             process.env.BB_HELPER_SUPPORTS_SET_NICKNAME === "true";
         if (!helperSupportsSetNickname) {
