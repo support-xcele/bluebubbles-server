@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { ipcRenderer } from 'electron';
 import {
     Spacer,
@@ -7,7 +7,6 @@ import {
     Text,
     SkeletonText
 } from '@chakra-ui/react';
-import { animate, useReducedMotion } from 'framer-motion';
 import { formatNumber } from 'app/utils/NumberUtils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setStat } from '../../slices/StatsSlice';
@@ -130,36 +129,12 @@ export const UpdatableStatBox = (
 };
 
 
-const AnimatedNumber = ({ value }: { value: number }): JSX.Element => {
-    const reduce = useReducedMotion();
-    const [display, setDisplay] = useState<number>(reduce ? value : 0);
-    const ref = useRef<number>(value);
-
-    useEffect(() => {
-        if (reduce) {
-            setDisplay(value);
-            return;
-        }
-        const from = ref.current === value ? 0 : ref.current;
-        const controls = animate(from, value, {
-            duration: 0.6,
-            ease: [0.4, 0, 0.2, 1],
-            onUpdate: (latest) => setDisplay(Math.round(latest))
-        });
-        ref.current = value;
-        return () => controls.stop();
-    }, [value, reduce]);
-
-    return <>{formatNumber(display)}</>;
-};
-
-
 export const StatBox = (
     { title, text, color }:
     { title: string, text: string | number | null, color: string }
 ): JSX.Element => {
-    return (
-        <Box {...({ variant: 'glass' } as any)} maxW='sm' borderRadius='14px' overflow='hidden' p={5} m={1}>
+    return (  
+        <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' p={5} m={1}>
             <Badge borderRadius='full' px='2' colorScheme={color} mb={2}>
                 {title}
             </Badge>
@@ -173,7 +148,7 @@ export const StatBox = (
                     <SkeletonText height={20} mt={2} noOfLines={2} />
                 ) : (
                     (typeof(text) === 'number') ? (
-                        <Text fontSize='2vw'><AnimatedNumber value={text} /></Text>
+                        <Text fontSize='2vw'>{formatNumber(text)}</Text>
                     ) : (
                         <Text fontSize='2vw'>{text}</Text>
                     )

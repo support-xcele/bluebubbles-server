@@ -8,6 +8,7 @@ import {
     Flex,
     HStack,
     Icon,
+    useColorModeValue,
     Link,
     Drawer,
     DrawerContent,
@@ -31,7 +32,6 @@ import {
     Badge,
     Divider
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { FiHome, FiSettings, FiMenu, FiBell, FiTrash } from 'react-icons/fi';
 import { AiOutlineBug, AiOutlineApi, AiOutlineDownload } from 'react-icons/ai';
 import { BsChevronDown, BsCheckAll, BsPersonCircle, BsFillCalendarCheckFill } from 'react-icons/bs';
@@ -175,27 +175,16 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     return (
         <Box
-            {...({ variant: 'glass' } as any)}
+            borderRight="1px"
+            borderRightColor={useColorModeValue('gray.200', 'gray.700')}
             minW='16em'
             w={{ base: 'full', md: 60 }}
             pos="fixed"
             h="full"
-            borderRadius="0"
-            borderLeft="0"
-            borderTop="0"
-            borderBottom="0"
             {...rest}
         >
             <Flex h="20" alignItems="center" mx="6" justifyContent="flex-start">
-                <motion.img
-                    src={logo}
-                    className="logo"
-                    alt="Xcelerate logo"
-                    height={40}
-                    width={40}
-                    whileHover={{ scale: 1.04 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                />
+                <img src={logo} className="logo" alt="Xcelerate logo" height={40} width={40} />
                 <Text fontSize="md" fontWeight="bold" ml={3} lineHeight="1.1">
                     Xcelerate<br />iMessage Bridge
                 </Text>
@@ -217,52 +206,33 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, to, children, ...rest }: NavItemProps) => {
     const location = useLocation();
-    const isActive = location.pathname === to;
     return (
-        <Box position="relative" mx="4" my="1">
-            {isActive && (
-                <motion.div
-                    layoutId="active-pill"
-                    style={{
-                        position: 'absolute',
-                        inset: 0,
-                        borderRadius: '12px',
-                        background: 'var(--xcelerate-accent)',
-                        opacity: 0.18,
-                        border: '1px solid var(--xcelerate-accent)',
-                        zIndex: 0
+        <Flex
+            align="center"
+            p="4"
+            mx="4"
+            borderRadius="lg"
+            role="group"
+            cursor="pointer"
+            _hover={{
+                bg: 'brand.primary',
+                color: 'white'
+            }}
+            color={location.pathname === to ? 'brand.primary' : 'current'}
+            {...rest}
+        >
+            {icon && (
+                <Icon
+                    mr="4"
+                    fontSize="16"
+                    _groupHover={{
+                        color: 'white'
                     }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                    as={icon}
                 />
             )}
-            <Flex
-                align="center"
-                p="4"
-                borderRadius="12px"
-                role="group"
-                cursor="pointer"
-                position="relative"
-                zIndex={1}
-                _hover={{
-                    bg: isActive ? undefined : 'rgba(255,255,255,0.06)',
-                    color: 'white'
-                }}
-                color={isActive ? 'brand.primary' : 'current'}
-                {...rest}
-            >
-                {icon && (
-                    <Icon
-                        mr="4"
-                        fontSize="16"
-                        _groupHover={{
-                            color: 'white'
-                        }}
-                        as={icon}
-                    />
-                )}
-                {children}
-            </Flex>
-        </Box>
+            {children}
+        </Flex>
     );
 };
 
@@ -273,26 +243,25 @@ interface MobileProps extends FlexProps {
 }
 const MobileNav = ({ onOpen, onNotificationOpen, unreadCount, ...rest }: MobileProps) => {
     const { colorMode, toggleColorMode } = useColorMode();
+    const useOled = useAppSelector(state => state.config.use_oled_dark_mode ?? false);
     const updateAvailable: boolean = (useAppSelector(state => state.config.update_available?.show) ?? false);
     const updateVersion: string = (useAppSelector(state => state.config.update_available?.version) ?? '');
+    const bgColor = (colorMode === 'light') ? 'white' : (useOled ? 'black' : 'gray.800');
 
     return (
-        <Box
-            {...({ variant: 'glass' } as any)}
-            display="flex"
+        <Flex
             ml={{ base: 0, md: 255 }}
             px={{ base: 4, md: 4 }}
             height="20"
             alignItems="center"
+            borderBottomWidth="1px"
+            borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
+            backgroundColor={bgColor}
             position="sticky"
             top="0"
             zIndex="sticky"
-            borderRadius="0"
-            borderLeft="0"
-            borderRight="0"
-            borderTop="0"
-            {...(rest as BoxProps)}
+            {...rest}
         >
             <IconButton
                 display={{ base: 'flex', md: 'none' }}
@@ -382,6 +351,6 @@ const MobileNav = ({ onOpen, onNotificationOpen, unreadCount, ...rest }: MobileP
                     <Box ml={2}><MdOutlineLightMode size={20} /></Box>
                 </FormControl>
             </HStack>
-        </Box>
+        </Flex>
     );
 };
