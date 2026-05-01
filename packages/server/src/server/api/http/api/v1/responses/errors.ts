@@ -113,3 +113,17 @@ export class IMessageError extends HTTPError {
         });
     }
 }
+
+export class NotImplemented extends HTTPError {
+    constructor(response?: ResponseParams) {
+        super({
+            status: 501,
+            message: response?.message ?? "This feature is not implemented by the running BlueBubblesHelper",
+            error: {
+                type: ErrorTypes.SERVER_ERROR,
+                message: response?.error ?? ResponseMessages.NOT_IMPLEMENTED
+            },
+            data: response?.data
+        });
+    }
+}
