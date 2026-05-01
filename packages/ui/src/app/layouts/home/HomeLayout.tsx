@@ -22,6 +22,7 @@ import {
 } from '@chakra-ui/react';
 import QRCode from 'react-qr-code';
 import { AiOutlineInfoCircle, AiOutlineQrcode } from 'react-icons/ai';
+import { motion } from 'framer-motion';
 
 import './styles.css';
 import { useAppSelector } from '../../hooks';
@@ -51,10 +52,30 @@ export const HomeLayout = (): JSX.Element => {
         !address.startsWith('http://localhost') &&
         !address.startsWith('http://127.0.0.1');
 
+    const containerVariants = {
+        hidden: { opacity: 1 },
+        show: {
+            opacity: 1,
+            transition: { staggerChildren: 0.05 }
+        }
+    };
+    const cardVariants = {
+        hidden: { opacity: 0, y: 16 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.24, ease: [0.4, 0, 0.2, 1] } }
+    };
+
+    const MotionBox = motion(Box);
+
     return (
         <Box p={3} borderRadius={10}>
-            <Flex flexDirection="column">
-                <Stack direction='column' p={5}>
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                style={{ display: 'flex', flexDirection: 'column' }}
+            >
+                <MotionBox variants={cardVariants} {...({ variant: 'glass' } as any)} m={2} p={5}>
+                <Stack direction='column'>
                     <Flex flexDirection='row' justifyContent='flex-start' alignItems='center'>
                         <Text fontSize='2xl'>Server Information</Text>
                         <Popover trigger='hover'>
@@ -172,7 +193,9 @@ export const HomeLayout = (): JSX.Element => {
                         <Divider orientation="vertical" />
                     </Flex>
                 </Stack>
-                <Stack direction='column' pl={5} pr={5} pb={5} pt={2}>
+                </MotionBox>
+                <MotionBox variants={cardVariants} variant="glass" m={2} pl={5} pr={5} pb={5} pt={2}>
+                <Stack direction='column'>
                     <Flex flexDirection='row' justifyContent='space-between' alignItems='center'>
                         <Flex flexDirection='row' justifyContent='flex-start' alignItems='center'>
                             <Text fontSize='2xl' minW="fit-content">iMessage Highlights</Text>
@@ -215,7 +238,8 @@ export const HomeLayout = (): JSX.Element => {
                         <TotalVideosStatBox delay={1000} pastDays={statDays} />
                     </SimpleGrid>
                 </Stack>
-            </Flex>
+                </MotionBox>
+            </motion.div>
         </Box>
     );
 };
