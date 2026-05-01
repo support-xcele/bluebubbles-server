@@ -3,7 +3,7 @@ import * as fs from "fs";
 import { FileSystem } from "@server/fileSystem";
 import { MessagePromise } from "@server/managers/outgoingMessageManager/messagePromise";
 import { Message } from "@server/databases/imessage/entity/Message";
-import { checkPrivateApiStatus, isEmpty, isNotEmpty, resultAwaiter } from "@server/helpers/utils";
+import { checkPrivateApiStatus, isEmpty, isNotEmpty, resolveChatByGuid, resultAwaiter } from "@server/helpers/utils";
 import { isMinMonterey, isMinVentura } from "@server/env";
 import { negativeReactionTextMap, reactionTextMap } from "@server/api/apple/mappings";
 import { invisibleMediaChar } from "@server/api/http/constants";
@@ -140,6 +140,19 @@ export class MessageInterface {
         isAudioMessage = false
     }: SendAttachmentParams): Promise<Message> {
         if (!chatGuid) throw new Error("No chat GUID provided");
+
+        // Resolve the chat with prefix fallback. The chat may be stored under
+        // either `iMessage;-;` or `any;-;` in chat.db. If we find it, swap the
+        // chatGuid in-place so downstream calls (AppleScript openChat, private
+        // API send, message awaiter) all see the canonical form.
+        const [resolvedChats, , resolvedGuid] = await resolveChatByGuid(chatGuid, { withParticipants: false });
+        if (isNotEmpty(resolvedChats) && resolvedGuid !== chatGuid) {
+            Server().log(
+                `sendAttachmentSync: chatGuid "${chatGuid}" resolved to "${resolvedGuid}" via prefix fallback`,
+                "debug"
+            );
+            chatGuid = resolvedGuid;
+        }
 
         // Copy the attachment to a more permanent storage
         const newPath = FileSystem.copyAttachment(attachmentPath, attachmentName, method);

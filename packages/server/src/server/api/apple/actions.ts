@@ -25,7 +25,8 @@ import {
     slugifyAddress,
     isNotEmpty,
     isEmpty,
-    safeTrim
+    safeTrim,
+    resolveChatByGuid
 } from "../../helpers/utils";
 import { tapbackUIMap } from "./mappings";
 import { MessageInterface } from "../interfaces/messageInterface";
@@ -261,11 +262,13 @@ export class ActionHandler {
     static openChat = async (chatGuid: string): Promise<string> => {
         log.debug(`Executing Action: Open Chat (Chat: ${chatGuid})`);
 
-        const [chats, _] = await Server().iMessageRepo.getChats({ chatGuid, withParticipants: true });
+        // Use prefix-fallback resolver: chat.db may store the chat under either
+        // `iMessage;-;` or `any;-;`, depending on creation path (text vs attachment).
+        const [chats, _, resolvedGuid] = await resolveChatByGuid(chatGuid, { withParticipants: true });
         if (isEmpty(chats)) throw new Error("Chat does not exist");
         if (chats[0].participants.length > 1) throw new Error("Chat is a group chat");
 
-        const names = await generateChatNameList(chatGuid);
+        const names = await generateChatNameList(resolvedGuid);
 
         /**
          * Above, we calculate 2 different names. One as-is, returned by the chat query, and one

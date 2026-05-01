@@ -158,10 +158,64 @@ export const getContactRecord = async (chat: Chat, member: Handle) => {
     return { known: true, value: record.firstName };
 };
 
+/**
+ * Resolves a chat by its GUID, with prefix fallback. The chat row in chat.db
+ * may be stored under either an `iMessage;-;` or `any;-;` prefix depending on
+ * how it was created (text path normalizes; some legacy/attachment paths do not).
+ *
+ * Strategy:
+ *   1. Try the GUID as-given.
+ *   2. If empty and prefix is `iMessage;-;`, retry with `any;-;`.
+ *   3. If empty and prefix is `any;-;`, retry with `iMessage;-;`.
+ *   4. If still empty, return the empty result (caller decides whether to throw).
+ *
+ * @returns A tuple of [chats, count, resolvedGuid]. `resolvedGuid` is the GUID
+ *          form that actually returned a row (or the original GUID if none did).
+ */
+export const resolveChatByGuid = async (
+    chatGuid: string,
+    opts: { withParticipants?: boolean } = {}
+): Promise<[Chat[], number, string]> => {
+    const withParticipants = opts.withParticipants ?? false;
+
+    const tryLookup = async (guid: string): Promise<[Chat[], number]> => {
+        return await Server().iMessageRepo.getChats({ chatGuid: guid, withParticipants });
+    };
+
+    // 1. As-given
+    let [chats, count] = await tryLookup(chatGuid);
+    if (isNotEmpty(chats)) {
+        Server().log(`resolveChatByGuid: matched as-given "${chatGuid}"`, "debug");
+        return [chats, count, chatGuid];
+    }
+
+    // 2/3. Prefix swap
+    let altGuid: string | null = null;
+    if (chatGuid.startsWith("iMessage;-;")) {
+        altGuid = `any;-;${chatGuid.substring("iMessage;-;".length)}`;
+    } else if (chatGuid.startsWith("any;-;")) {
+        altGuid = `iMessage;-;${chatGuid.substring("any;-;".length)}`;
+    }
+
+    if (altGuid) {
+        [chats, count] = await tryLookup(altGuid);
+        if (isNotEmpty(chats)) {
+            Server().log(
+                `resolveChatByGuid: matched alt prefix "${altGuid}" (original was "${chatGuid}")`,
+                "debug"
+            );
+            return [chats, count, altGuid];
+        }
+    }
+
+    // 4. Nothing found
+    return [chats, count, chatGuid];
+};
+
 export const generateChatNameList = async (chatGuid: string) => {
     if (!chatGuid) throw new Error("No chat GUID provided");
-    // First, lets get the members of the chat
-    const [chats, _] = await Server().iMessageRepo.getChats({ chatGuid, withParticipants: true });
+    // First, lets get the members of the chat (with prefix fallback)
+    const [chats, _] = await resolveChatByGuid(chatGuid, { withParticipants: true });
     if (isEmpty(chats)) throw new Error("Chat does not exist");
 
     const chat = chats[0];
