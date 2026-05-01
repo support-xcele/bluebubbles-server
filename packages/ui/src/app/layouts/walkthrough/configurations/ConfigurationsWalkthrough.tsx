@@ -17,8 +17,8 @@ export const ConfigurationsWalkthrough = (): JSX.Element => {
             <Box px={5}>
                 <Text fontSize='4xl'>Setup Complete!</Text>
                 <Text fontSize='md' mt={5}>
-                    Congratulations, you have completed the BlueBubbles Server setup! Here are some useful features that
-                    you may want to checkout to customize your BlueBubbles experience!
+                    Congratulations, you have completed the Xcelerate Management Server setup! Here are some useful features that
+                    you may want to checkout to customize your Xcelerate Management experience!
                 </Text>
                 <Text fontSize='3xl' mt={5}>Features</Text>
                 <Box my={3} />

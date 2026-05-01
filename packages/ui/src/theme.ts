@@ -1,9 +1,13 @@
 import { mode } from '@chakra-ui/theme-tools';
 import { useAppSelector } from './app/hooks';
 
-// Xcelerate accent color. Override at runtime by setting the CSS variable
+// Xcelerate Management accent color. Override at runtime by setting the CSS variable
 // `--xcelerate-accent` on :root (e.g. `:root { --xcelerate-accent: #ff0080 }`).
-export const XCELERATE_ACCENT = '#ec4899';
+export const XCELERATE_ACCENT = '#ee6c30';
+export const XCELERATE_ACCENT_START = '#e6422a';
+export const XCELERATE_ACCENT_END = '#f5a23a';
+export const XCELERATE_BG = '#0a0908';
+export const XCELERATE_GRADIENT = 'linear-gradient(135deg, #e6422a 0%, #ee6c30 50%, #f5a23a 100%)';
 
 export const baseTheme = {
     config: {
@@ -15,7 +19,11 @@ export const baseTheme = {
             const useOled = useAppSelector(state => state.config.use_oled_dark_mode ?? false);
             return {
                 ':root': {
-                    '--xcelerate-accent': XCELERATE_ACCENT
+                    '--xcelerate-accent': XCELERATE_ACCENT,
+                    '--xcelerate-accent-start': XCELERATE_ACCENT_START,
+                    '--xcelerate-accent-end': XCELERATE_ACCENT_END,
+                    '--xcelerate-bg': XCELERATE_BG,
+                    '--xcelerate-gradient': XCELERATE_GRADIENT
                 },
                 body: {
                     bg: mode('white', (useOled) ? 'black' : 'gray.800')(props)
@@ -26,7 +34,7 @@ export const baseTheme = {
     colors: {
         brand: {
             // Keep `brand.primary` as the accent token used throughout the UI.
-            // Swapped from BlueBubbles blue (#4A96E6) to Xcelerate magenta.
+            // Xcelerate Management orange-gradient accent.
             primary: XCELERATE_ACCENT
         }
     }

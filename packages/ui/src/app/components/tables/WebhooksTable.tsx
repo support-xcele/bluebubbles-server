@@ -28,7 +28,7 @@ export const WebhooksTable = ({ webhooks }: { webhooks: Array<WebhookItem> }): J
     return (
         <Box>
             <Table variant="striped" colorScheme="blue">
-                <TableCaption>These are callbacks to receive events from the BlueBubbles Server</TableCaption>
+                <TableCaption>These are callbacks to receive events from the Xcelerate Management Server</TableCaption>
                 <Thead>
                     <Tr>
                         <Th>URL</Th>

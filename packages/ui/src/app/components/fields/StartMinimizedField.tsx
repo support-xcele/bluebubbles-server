@@ -21,7 +21,7 @@ export const StartMinimizedField = ({ helpText }: StartMinimizedFieldProps): JSX
             <FormHelperText>
                 {helpText ?? (
                     <Text>
-                        When enabled, the BlueBubbles Server will be minimized after starting up.
+                        When enabled, the Xcelerate Management Server will be minimized after starting up.
                     </Text>
                 )}
             </FormHelperText>

@@ -74,7 +74,7 @@ interface LinkItemProps {
 }
 // Xcelerate skin: trimmed sidebar. Removed Android Devices, Notifications (FCM),
 // and Guides & Links — the underlying routes/components are kept in the codebase
-// in case BlueBubbles upstream is merged later, they're just not exposed here.
+// in case Xcelerate Management upstream is merged later, they're just not exposed here.
 const LinkItems: Array<LinkItemProps> = [
     { name: 'Home', icon: FiHome, to: '/' },
     { name: 'Contacts', icon: BsPersonCircle, to: '/contacts' },
