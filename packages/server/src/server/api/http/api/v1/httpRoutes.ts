@@ -106,6 +106,12 @@ export class HttpRoutes {
                         controller: iCloudRouter.changeAlias
                     },
                     {
+                        method: HttpMethod.POST,
+                        path: "account/share-name",
+                        middleware: [...HttpRoutes.protected, PrivateApiMiddleware],
+                        controller: iCloudRouter.setShareNameProfile
+                    },
+                    {
                         method: HttpMethod.GET,
                         path: "contact",
                         middleware: [...HttpRoutes.protected, PrivateApiMiddleware],

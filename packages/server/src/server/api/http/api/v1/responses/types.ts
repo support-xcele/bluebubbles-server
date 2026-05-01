@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-export type ValidStatuses = 200 | 201 | 400 | 401 | 403 | 404 | 500 | 504;
+export type ValidStatuses = 200 | 201 | 400 | 401 | 403 | 404 | 500 | 501 | 504;
 
 export type ResponseData = any;
 
@@ -13,7 +13,8 @@ export enum ResponseMessages {
     NO_DATA = "No Data",
     NOT_FOUND = "Not Found",
     UNKNOWN_IMESSAGE_ERROR = "Unknown iMessage Error",
-    GATEWAY_TIMEOUT = "Gateway Timeout"
+    GATEWAY_TIMEOUT = "Gateway Timeout",
+    NOT_IMPLEMENTED = "Not Implemented"
 }
 
 export enum ErrorTypes {
