@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    IconButton,
     Box,
     Flex,
     HStack,
@@ -14,12 +13,9 @@ import {
     Spacer,
     Divider
 } from '@chakra-ui/react';
-import { FiGithub, FiMessageCircle } from 'react-icons/fi';
-import { FaDiscord } from 'react-icons/fa';
-import { AiOutlineHome } from 'react-icons/ai';
-import { MdOutlineAttachMoney, MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
-import { WalkthroughLayout } from '../../layouts/walkthrough/WalkthroughLayout'; 
-import logo from '../../../images/logo/icon-64.png';
+import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
+import { WalkthroughLayout } from '../../layouts/walkthrough/WalkthroughLayout';
+import logo from '../../../images/logo/xcelerate-logo.svg';
 
 
 export const Setup = (): JSX.Element => {
@@ -47,34 +43,24 @@ const NavBar = (): JSX.Element => {
             pl={6}
         >
             <Flex alignItems="center" justifyContent='flex-start'>
-                <img src={logo} className="logo" alt="logo" height={48} />
-                <Text fontSize="1xl" ml={2}>BlueBubbles</Text>
+                <img src={logo} className="logo" alt="Xcelerate logo" height={40} width={40} />
+                <Text fontSize="md" fontWeight="bold" ml={3} lineHeight="1.1">
+                    Xcelerate<br />iMessage Bridge
+                </Text>
             </Flex>
             <Flex justifyContent='flex-end'>
                 <HStack spacing={{ base: '0', md: '1' }}>
-                    <Tooltip label="Website Home" aria-label="website-tip">
-                        <Link href="https://bluebubbles.app" style={{ textDecoration: 'none' }} target="_blank">
-                            <IconButton size="lg" variant="ghost" aria-label="website" icon={<AiOutlineHome />} />
-                        </Link>
-                    </Tooltip>
-                    <Tooltip label="BlueBubbles Web" aria-label="website-tip">
-                        <Link href="https://bluebubbles.app/web" style={{ textDecoration: 'none' }} target="_blank">
-                            <IconButton size="lg" variant="ghost" aria-label="bluebubbles web" icon={<FiMessageCircle />} />
-                        </Link>
-                    </Tooltip>
-                    <Tooltip label="Support Us" aria-label="donate-tip">
-                        <Link href="https://bluebubbles.app/donate" style={{ textDecoration: 'none' }} target="_blank">
-                            <IconButton size="lg" variant="ghost" aria-label="donate" icon={<MdOutlineAttachMoney />} />
-                        </Link>
-                    </Tooltip>
-                    <Tooltip label="Join our Discord" aria-label="discord-tip">
-                        <Link href="https://discord.gg/yC4wr38" style={{ textDecoration: 'none' }} target="_blank">
-                            <IconButton size="lg" variant="ghost" aria-label="discord" icon={<FaDiscord />} />
-                        </Link>
-                    </Tooltip>
-                    <Tooltip label="Read our Source Code" aria-label="github-tip">
-                        <Link href="https://github.com/BlueBubblesApp" style={{ textDecoration: 'none' }} target="_blank">
-                            <IconButton size="lg" variant="ghost" aria-label="github" icon={<FiGithub />} />
+                    <Tooltip label="Built by Xcelerate" aria-label="xcelerate-tip">
+                        <Link
+                            href="https://xcelegram.com"
+                            style={{ textDecoration: 'none' }}
+                            target="_blank"
+                            fontSize="sm"
+                            color="brand.primary"
+                            fontWeight="600"
+                            px={3}
+                        >
+                            Built by Xcelerate
                         </Link>
                     </Tooltip>
                     <Spacer />

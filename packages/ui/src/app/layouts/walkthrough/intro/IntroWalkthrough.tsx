@@ -14,16 +14,15 @@ export const IntroWalkthrough = (): JSX.Element => {
     return (
         <SlideFade in={true} offsetY='150px'>
             <Box px={5}>
-                <Text fontSize='4xl'>Welcome to BlueBubbles!</Text>
+                <Text fontSize='4xl'>Welcome to the Xcelerate iMessage Bridge</Text>
                 <Text fontSize='md' mt={5}>
-                    Hey there, and welcome to the BlueBubbles Server! For starters, BlueBubbles is a cross-platform and
-                    open-source ecosystem of apps, enabling the use of iMessage on Android, Web, and PC (Linux and Windows).
-                    This Server App is the hub for all your connected devices; allowing you to send messages and receive
-                    notifications as you would on an Apple device.
+                    This server app exposes a local REST + Socket.IO API for sending and receiving iMessages
+                    on this Mac. Configure webhooks, scheduled messages, and contacts from the sidebar — the
+                    Xcelerate platform talks to this bridge directly.
                 </Text>
                 <Text fontSize='3xl' mt={10}>Useful Resources</Text>
                 <Text fontSize='md' my={5}>
-                    In addition to the links in the navigation bar, use the links below to learn more about BlueBubbles and how to use it!
+                    The links below point to the upstream BlueBubbles project, which this bridge is built on.
                 </Text>
                 <Wrap spacing='10px'>
                     <WrapItem>
