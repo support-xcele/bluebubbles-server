@@ -32,23 +32,19 @@ import {
     Badge,
     Divider
 } from '@chakra-ui/react';
-import { FiHome, FiSettings, FiMenu, FiBell, FiGithub, FiMessageCircle, FiTrash } from 'react-icons/fi';
-import { FaDiscord, FaGoogle } from 'react-icons/fa';
-import { AiOutlineBug, AiOutlineHome, AiOutlineApi, AiOutlineHeart, AiOutlineDownload } from 'react-icons/ai';
-import { BsChevronDown, BsCheckAll, BsBook, BsPersonCircle, BsFillCalendarCheckFill, BsPhone } from 'react-icons/bs';
-import { MdOutlineAttachMoney, MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
+import { FiHome, FiSettings, FiMenu, FiBell, FiTrash } from 'react-icons/fi';
+import { AiOutlineBug, AiOutlineApi, AiOutlineDownload } from 'react-icons/ai';
+import { BsChevronDown, BsCheckAll, BsPersonCircle, BsFillCalendarCheckFill } from 'react-icons/bs';
+import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md';
 import { IconType } from 'react-icons';
 
 import { ContactsLayout } from 'app/layouts/contacts/ContactsLayout';
 
 import { HomeLayout } from '../../layouts/home/HomeLayout';
-import { DevicesLayout } from '../../layouts/devices/DevicesLayout';
 import { LogsLayout } from '../../layouts/logs/LogsLayout';
 import { SettingsLayout } from '../../layouts/settings/SettingsLayout';
-import { NotificationsLayout } from '../../layouts/notifications/NotificationsLayout';
 import { ApiLayout } from '../../layouts/api/ApiLayout';
-import { GuidesLayout } from '../../layouts/guides/GuidesLayout';
-import logo from '../../../images/logo/icon-64.png';
+import logo from '../../../images/logo/xcelerate-logo.svg';
 import { NotificationsTable } from '../../components/tables/NotificationsTable';
 import './styles.css';
 
@@ -76,15 +72,15 @@ interface LinkItemProps {
     icon: IconType;
     to: string;
 }
+// Xcelerate skin: trimmed sidebar. Removed Android Devices, Notifications (FCM),
+// and Guides & Links — the underlying routes/components are kept in the codebase
+// in case BlueBubbles upstream is merged later, they're just not exposed here.
 const LinkItems: Array<LinkItemProps> = [
     { name: 'Home', icon: FiHome, to: '/' },
     { name: 'Contacts', icon: BsPersonCircle, to: '/contacts' },
-    { name: 'Android Devices', icon: BsPhone, to: '/devices' },
-    { name: 'Notifications', icon: FaGoogle, to: '/notifications' },
     { name: 'Scheduled Messages', icon: BsFillCalendarCheckFill, to: '/scheduled-messages' },
     { name: 'API & Webhooks', icon: AiOutlineApi, to: '/webhooks' },
     { name: 'Debug & Logs', icon: AiOutlineBug, to: '/logs' },
-    { name: 'Guides & Links', icon: BsBook, to: '/guides' },
     { name: 'Settings', icon: FiSettings, to: '/settings' }
 ];
 
@@ -129,11 +125,8 @@ export const Navigation = (): JSX.Element => {
                         <Route path="/settings" element={<SettingsLayout />} />
                         <Route path="/logs" element={<LogsLayout />} />
                         <Route path="/contacts" element={<ContactsLayout />} />
-                        <Route path="/notifications" element={<NotificationsLayout />} />
-                        <Route path="/devices" element={<DevicesLayout />} />
                         <Route path="/scheduled-messages" element={<ScheduledMessagesLayout />} />
                         <Route path="/webhooks" element={<ApiLayout />} />
-                        <Route path="/guides" element={<GuidesLayout />} />
                         <Route path="/" element={<HomeLayout />} />
                     </Routes>
                 </Box>
@@ -191,8 +184,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             {...rest}
         >
             <Flex h="20" alignItems="center" mx="6" justifyContent="flex-start">
-                <img src={logo} className="logo" alt="logo" height={48} />
-                <Text fontSize="1xl" ml={2}>BlueBubbles</Text>
+                <img src={logo} className="logo" alt="Xcelerate logo" height={40} width={40} />
+                <Text fontSize="md" fontWeight="bold" ml={3} lineHeight="1.1">
+                    Xcelerate<br />iMessage Bridge
+                </Text>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map(link => (
@@ -305,34 +300,17 @@ const MobileNav = ({ onOpen, onNotificationOpen, unreadCount, ...rest }: MobileP
                         >v{updateVersion}</Badge>
                     </Box>
                 ): null}
-                <Tooltip label="Website Home" aria-label="website-tip">
-                    <Link href="https://bluebubbles.app" style={{ textDecoration: 'none' }} target="_blank">
-                        <IconButton size="lg" variant="ghost" aria-label="website" icon={<AiOutlineHome />} />
-                    </Link>
-                </Tooltip>
-                <Tooltip label="BlueBubbles Web" aria-label="web-tip">
-                    <Link href="https://bluebubbles.app/web" style={{ textDecoration: 'none' }} target="_blank">
-                        <IconButton size="lg" variant="ghost" aria-label="bluebubbles web" icon={<FiMessageCircle />} />
-                    </Link>
-                </Tooltip>
-                <Tooltip label="Sponsor Us" aria-label="sponsor-tip">
-                    <Link href="https://github.com/sponsors/BlueBubblesApp" style={{ textDecoration: 'none' }} target="_blank">
-                        <IconButton size="lg" variant="ghost" aria-label="donate" icon={<AiOutlineHeart />} />
-                    </Link>
-                </Tooltip>
-                <Tooltip label="Support Us" aria-label="donate-tip">
-                    <Link href="https://bluebubbles.app/donate" style={{ textDecoration: 'none' }} target="_blank">
-                        <IconButton size="lg" variant="ghost" aria-label="donate" icon={<MdOutlineAttachMoney />} />
-                    </Link>
-                </Tooltip>
-                <Tooltip label="Join our Discord" aria-label="discord-tip">
-                    <Link href="https://discord.gg/yC4wr38" style={{ textDecoration: 'none' }} target="_blank">
-                        <IconButton size="lg" variant="ghost" aria-label="discord" icon={<FaDiscord />} />
-                    </Link>
-                </Tooltip>
-                <Tooltip label="Read our Source Code" aria-label="github-tip">
-                    <Link href="https://github.com/BlueBubblesApp" style={{ textDecoration: 'none' }} target="_blank">
-                        <IconButton size="lg" variant="ghost" aria-label="github" icon={<FiGithub />} />
+                <Tooltip label="Built by Xcelerate" aria-label="xcelerate-tip">
+                    <Link
+                        href="https://xcelegram.com"
+                        style={{ textDecoration: 'none' }}
+                        target="_blank"
+                        fontSize="sm"
+                        color="brand.primary"
+                        fontWeight="600"
+                        px={3}
+                    >
+                        Built by Xcelerate
                     </Link>
                 </Tooltip>
                 <Box position='relative' float='left'>
