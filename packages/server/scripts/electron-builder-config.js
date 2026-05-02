@@ -9,6 +9,12 @@ module.exports = {
         "buildResources": "appResources"
     },
     "asar": true,
+    // Native (.node) bindings can't be loaded from inside an asar archive — the
+    // dynamic linker needs a real filesystem path. Keep them on disk under
+    // app.asar.unpacked/ so dlopen() can find them at runtime.
+    "asarUnpack": [
+        "**/*.node"
+    ],
     "extraResources": [
         "appResources"
     ],
