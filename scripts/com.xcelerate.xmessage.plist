@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  LaunchAgent for xMessage — keeps the Mac-side iMessage bridge running.
+
+  Install:
+      cp scripts/com.xcelerate.xmessage.plist ~/Library/LaunchAgents/
+      launchctl load -w ~/Library/LaunchAgents/com.xcelerate.xmessage.plist
+
+  Uninstall:
+      launchctl unload -w ~/Library/LaunchAgents/com.xcelerate.xmessage.plist
+      rm ~/Library/LaunchAgents/com.xcelerate.xmessage.plist
+
+  Why a launchd agent instead of clicking xMessage in Finder:
+    - Auto-starts at login (RunAtLoad).
+    - launchd restarts the process if it crashes (KeepAlive.Crashed=true).
+    - Bypasses Launch Services routing — `open` on this fork misroutes through
+      stale BlueBubbles bundle-id registrations on macOS, so we invoke the
+      binary directly.
+
+  Logs land at:
+      ~/Library/Logs/xmessage.out.log
+      ~/Library/Logs/xmessage.err.log
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.xcelerate.xmessage</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Applications/xMessage.app/Contents/MacOS/xMessage</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <!-- Restart on crash, but not on clean exit (so the user can quit normally). -->
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+    <key>Crashed</key>
+    <true/>
+  </dict>
+
+  <key>ProcessType</key>
+  <string>Interactive</string>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/xmessage.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/xmessage.err.log</string>
+
+  <key>WorkingDirectory</key>
+  <string>/tmp</string>
+</dict>
+</plist>
