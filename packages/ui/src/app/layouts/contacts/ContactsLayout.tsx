@@ -180,7 +180,7 @@ export const ContactsLayout = (): JSX.Element => {
         }
 
         if (contacts.length === 0) {
-            return wrap(<Text fontSize="md">BlueBubbles found no contacts in your Mac's Address Book!</Text>);
+            return wrap(<Text fontSize="md">xMessage found no contacts in your Mac's Address Book!</Text>);
         }
 
         return null;
@@ -370,7 +370,7 @@ export const ContactsLayout = (): JSX.Element => {
             </Stack>
             <Box ml={5} mr={5}>
                 <Text fontSize='md'>
-                    Using the button below, you can authorize BlueBubbles to access your Google Contacts. This will allow BlueBubbles to
+                    Using the button below, you can authorize xMessage to access your Google Contacts. This will allow xMessage to
                     download your contacts + avatars from Google, and serve them to any connected clients.
                 </Text>
                 <Link
@@ -412,7 +412,7 @@ export const ContactsLayout = (): JSX.Element => {
                             <PopoverHeader>Information</PopoverHeader>
                             <PopoverBody>
                                 <Text>
-                                    Here are the contacts on your macOS device that BlueBubbles knows about,
+                                    Here are the contacts on your macOS device that xMessage knows about,
                                     and will serve to any clients that want to know about them. These include
                                     contacts from this Mac's Address Book, as well as contacts from uploads/imports
                                     or manual entry.

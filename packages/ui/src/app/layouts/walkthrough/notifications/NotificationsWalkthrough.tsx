@@ -178,10 +178,10 @@ export const NotificationsWalkthrough = (): JSX.Element => {
             >
                 <Text fontSize='4xl'>Notifications &amp; Firebase</Text>
                 <Text fontSize='md' mt={5} mb={5}>
-                    BlueBubbles utilizes Google FCM (Firebase Cloud Messaging) to deliver notifications and server URL changes to your BlueBubbles clients.
+                    xMessage utilizes Google FCM (Firebase Cloud Messaging) to deliver notifications and server URL changes to your xMessage clients.
                     We do this so the clients do not need to hold a connection to the server at all times. As a result,
-                    BlueBubbles can deliver notifications even when the app is running in the background. This is also used to
-                    ensure your current server URL is always synced to your BlueBubbles clients.
+                    xMessage can deliver notifications even when the app is running in the background. This is also used to
+                    ensure your current server URL is always synced to your xMessage clients.
                 </Text>
                 {getAlertStatus()}
                 <Box mt={3} />
@@ -193,8 +193,8 @@ export const NotificationsWalkthrough = (): JSX.Element => {
                     <TabPanels>
                         <TabPanel>
                             <Text fontSize='md'>
-                                Using the button below, you can authorize BlueBubbles to manage your Google Cloud Platform account temporarily.
-                                This will allow BlueBubbles to automatically create your Firebase project and setup the necessary configurations
+                                Using the button below, you can authorize xMessage to manage your Google Cloud Platform account temporarily.
+                                This will allow xMessage to automatically create your Firebase project and setup the necessary configurations
                                 so your Android device can receive notifications.
                             </Text>
                             <Link

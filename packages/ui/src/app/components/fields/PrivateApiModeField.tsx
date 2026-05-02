@@ -40,7 +40,7 @@ export const PrivateApiModeField = ({ helpText }: PrivateApiModeFieldProps): JSX
             </Flex>
             <FormHelperText>
                 {helpText ?? (
-                    'Select how you want the BlueBubbles Private API Helper Bundle to be injected into the Messages App. ' +
+                    'Select how you want the xMessage Private API Helper Bundle to be injected into the Messages App. ' +
                     'Selecting "MacForge Bundle" will require MacForge to be installed. Selecting "Messages App DYLIB" will ' +
                     'attempt to inject the bundle into the Messages App directly.'
                 )}

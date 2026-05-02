@@ -21,7 +21,7 @@ export const AutoInstallUpdatesField = ({ helpText }: AutoInstallUpdatesFieldPro
             <FormHelperText>
                 {helpText ?? (
                     <Text>
-                        When enabled, BlueBubbles will auto-install the latest available version when an update is detected
+                        When enabled, xMessage will auto-install the latest available version when an update is detected
                     </Text>
                 )}
             </FormHelperText>

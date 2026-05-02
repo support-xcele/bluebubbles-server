@@ -1,7 +1,7 @@
 // NOTE: All paths are relative to the package.json that will be loading this configuration file.
 // Making them relative to the scripts folder will break the commands
 module.exports = {
-    "productName": "BlueBubbles",
+    "productName": "xMessage",
     "appId": "com.BlueBubbles.BlueBubbles-Server",
     "npmRebuild": true,
     "directories": {
@@ -29,7 +29,6 @@ module.exports = {
             {
                 "target": "dmg",
                 "arch": [
-                    "x64",
                     "arm64"
                 ],
             }
@@ -42,9 +41,9 @@ module.exports = {
         "entitlements": "./scripts/entitlements.mac.plist",
         "entitlementsInherit": "./scripts/entitlements.mac.plist",
         "extendInfo": {
-            "NSContactsUsageDescription": "BlueBubbles needs access to your Contacts",
-            "NSAppleEventsUsageDescription": "BlueBubbles needs access to run AppleScripts",
-            "NSSystemAdministrationUsageDescription": "BlueBubbles needs access to manage your system",
+            "NSContactsUsageDescription": "xMessage needs access to your Contacts",
+            "NSAppleEventsUsageDescription": "xMessage needs access to run AppleScripts",
+            "NSSystemAdministrationUsageDescription": "xMessage needs access to manage your system",
         },
         "gatekeeperAssess": false,
         "minimumSystemVersion": "10.11.0",

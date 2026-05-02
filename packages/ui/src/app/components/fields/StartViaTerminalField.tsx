@@ -22,7 +22,7 @@ export const StartViaTerminalField = ({ helpText }: StartViaTerminalFieldProps):
             <FormHelperText>
                 {helpText ?? (
                     <Text>
-                        When BlueBubbles starts up, it will auto-reload itself in terminal mode.
+                        When xMessage starts up, it will auto-reload itself in terminal mode.
                         When in terminal, type "help" for command information.
                     </Text>
                 )}

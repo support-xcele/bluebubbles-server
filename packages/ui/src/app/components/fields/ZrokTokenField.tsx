@@ -86,7 +86,7 @@ export const ZrokTokenField = ({ helpText }: ZrokTokenFieldProps): JSX.Element =
                 <FormHelperText>
                     {helpText ?? (
                         <Text>
-                            A Zrok Token is required to use the Zrok proxy service. If you do not have one, you can sign up for a free account within BlueBubbles.
+                            A Zrok Token is required to use the Zrok proxy service. If you do not have one, you can sign up for a free account within xMessage.
                         </Text>
                     )}
                 </FormHelperText>

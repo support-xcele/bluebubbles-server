@@ -37,7 +37,7 @@ const confirmationActions: ConfirmationItems = {
     clearDevices: {
         message: (
             'Are you sure you want to clear your registered devices?<br /><br />' +
-            'Doing so will mean you will have to re-register your BlueBubbles client ' +
+            'Doing so will mean you will have to re-register your xMessage client ' +
             'by restarting the app.'
         ),
         shouldDispatch: true,
@@ -122,7 +122,7 @@ export const DevicesLayout = (): JSX.Element => {
                             <PopoverHeader>Information</PopoverHeader>
                             <PopoverBody>
                                 <Text>
-                                    Here is where you'll find any devices that are registered with your BlueBubbles
+                                    Here is where you'll find any devices that are registered with your xMessage
                                     server to receive notifications and other messages. If you do not see your device
                                     here after setting up your app, please contact us for assistance.
                                 </Text>

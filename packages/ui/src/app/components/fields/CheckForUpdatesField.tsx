@@ -21,7 +21,7 @@ export const CheckForUpdatesField = ({ helpText }: CheckForUpdatesFieldProps): J
             <FormHelperText>
                 {helpText ?? (
                     <Text>
-                        When enabled, BlueBubbles will automatically check for updates on startup
+                        When enabled, xMessage will automatically check for updates on startup
                     </Text>
                 )}
             </FormHelperText>

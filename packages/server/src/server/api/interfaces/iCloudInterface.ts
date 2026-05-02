@@ -93,7 +93,10 @@ export class iCloudInterface {
                         return;
                     }
                     res.pipe(file);
-                    file.on("finish", () => file.close(() => resolve()));
+                    file.on("finish", () => {
+                        file.close();
+                        resolve();
+                    });
                 })
                 .on("error", err => {
                     fs.unlink(tmpPath, () => {

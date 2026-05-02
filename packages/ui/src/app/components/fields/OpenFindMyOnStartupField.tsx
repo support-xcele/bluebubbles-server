@@ -21,7 +21,7 @@ export const OpenFindMyOnStartupField = ({ helpText }: OpenFindMyOnStartupFieldP
             <FormHelperText>
                 {helpText ?? (
                     <Text>
-                        When enabled, BlueBubbles will automatically open, then hide the FindMy app when the server starts.
+                        When enabled, xMessage will automatically open, then hide the FindMy app when the server starts.
                         This is to trigger the fetch of locations from the FindMy app so the server can cache them for clients.
                     </Text>
                 )}

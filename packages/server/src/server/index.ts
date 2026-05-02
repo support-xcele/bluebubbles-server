@@ -408,10 +408,10 @@ class BlueBubblesServer extends EventEmitter {
             const dialogOpts: MessageBoxOptions = {
                 type: "error",
                 buttons: ["Restart", "Open System Preferences", "Ignore"],
-                title: "BlueBubbles Error",
+                title: "xMessage Error",
                 message: "Full-Disk Access Permission Required!",
                 detail:
-                    `In order to function correctly, BlueBubbles requires full-disk access. ` +
+                    `In order to function correctly, xMessage requires full-disk access. ` +
                     `Please enable Full-Disk Access in System Preferences > Security & Privacy.`
             };
 
@@ -886,10 +886,10 @@ class BlueBubblesServer extends EventEmitter {
             dialog.showMessageBox(this.window, {
                 type: "warning",
                 buttons: ["OK"],
-                title: "BlueBubbles Warning",
+                title: "xMessage Warning",
                 message: "No Password Set!",
                 detail:
-                    `No password is currently set. BlueBubbles will not function correctly without one. ` +
+                    `No password is currently set. xMessage will not function correctly without one. ` +
                     `Please go to the configuration page, fill in a password, and save the configuration.`
             });
         }
