@@ -81,4 +81,17 @@ export class HandleRouter {
         const available = await HandleInterface.getFacetimeAvailability(address);
         return new Success(ctx, { data: { available } }).send();
     }
+
+    /**
+     * POST /api/v1/handle/:guid/block
+     * Body: { block?: boolean }   default true
+     * Calls IMHandle.setBlocked: via the private API helper.
+     */
+    static async setBlocked(ctx: RouterContext, _: Next) {
+        const address = ctx.params.guid;
+        const blockRaw = (ctx.request.body as Record<string, unknown>)?.block;
+        const block = blockRaw === undefined ? true : !!blockRaw;
+        const isBlocked = await HandleInterface.setBlocked(address, block);
+        return new Success(ctx, { data: { address, block, isBlocked } }).send();
+    }
 }

@@ -96,4 +96,20 @@ export class HandleInterface {
 
         return !!availability?.data.available;
     }
+
+    /**
+     * Block or unblock a contact at the Messages.app level. Wraps the
+     * private API helper which calls IMHandle.setBlocked: — the exact
+     * setter Apple's "Block Contact" UI flips. Returns the post-write
+     * isBlocked state the helper reports.
+     */
+    static async setBlocked(address: string, block = true): Promise<boolean> {
+        checkPrivateApiStatus();
+        const addr = getiMessageAddressFormat(address);
+        const result = await Server().privateApi.handle.setBlocked(addr, block);
+        if (result?.data == null) {
+            throw new Error("Failed to (un)block handle — no response from helper");
+        }
+        return !!result.data.isBlocked;
+    }
 }

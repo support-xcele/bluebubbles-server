@@ -579,6 +579,16 @@ export class HttpRoutes {
                         path: ":guid/focus",
                         validators: [HandleValidator.validateFind],
                         controller: HandleRouter.getFocusStatus
+                    },
+                    {
+                        // Block / unblock a handle at the Messages.app level
+                        // (IMHandle.setBlocked: under the hood). Same private
+                        // API "Block Contact" in Messages.app UI calls.
+                        method: HttpMethod.POST,
+                        path: ":guid/block",
+                        middleware: [...HttpRoutes.protected, PrivateApiMiddleware],
+                        validators: [HandleValidator.validateFind],
+                        controller: HandleRouter.setBlocked
                     }
                 ]
             },
@@ -625,6 +635,11 @@ export class HttpRoutes {
                         method: HttpMethod.POST,
                         path: "query",
                         controller: ContactRouter.query
+                    },
+                    {
+                        method: HttpMethod.POST,
+                        path: "native",
+                        controller: ContactRouter.createNative
                     }
                 ]
             },
