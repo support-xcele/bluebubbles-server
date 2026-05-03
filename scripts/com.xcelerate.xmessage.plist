@@ -35,14 +35,15 @@
   <key>RunAtLoad</key>
   <true/>
 
-  <!-- Restart on crash, but not on clean exit (so the user can quit normally). -->
+  <!-- Restart on every exit — clean or crash. xMessage's MessagesDylibPlugin
+       triggers a graceful shutdown sequence (exit code 0) when its DYLIB
+       injection into Messages.app fails or when Messages is force-quit. With
+       KeepAlive=Crashed-only the bridge stays down silently in those cases.
+       Unconditional KeepAlive guarantees we come back within ~10s
+       (launchd's default ThrottleInterval). The user can stop the agent
+       cleanly with `launchctl bootout` if they need it down. -->
   <key>KeepAlive</key>
-  <dict>
-    <key>SuccessfulExit</key>
-    <false/>
-    <key>Crashed</key>
-    <true/>
-  </dict>
+  <true/>
 
   <key>ProcessType</key>
   <string>Interactive</string>
