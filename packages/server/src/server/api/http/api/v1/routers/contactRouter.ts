@@ -3,6 +3,7 @@ import { Next } from "koa";
 
 import { isEmpty, isNotEmpty } from "@server/helpers/utils";
 import { ContactInterface } from "@server/api/interfaces/contactInterface";
+import { ContactsLib } from "@server/api/lib/ContactsLib";
 import { Success } from "../responses/success";
 import { Contact } from "@server/databases/server/entity";
 import { parseWithQuery } from "../utils";
@@ -92,5 +93,41 @@ export class ContactRouter {
         }
 
         return new Success(ctx, output).send();
+    }
+
+    // Create contacts directly in the native macOS Address Book (Contacts.app), which
+    // iCloud-syncs to all the user's devices. Idempotent: skips entries whose phone or
+    // email already exists in the user's Contacts. Used by the auto-Contact-creation
+    // pipeline so every new iMessage sender becomes a CRM lead with iCloud sync.
+    //
+    // Body: { firstName, lastName?, phoneNumbers?: string[], emails?: string[] } or array.
+    static async createNative(ctx: RouterContext, _: Next) {
+        let { body } = ctx.request;
+        if (typeof body === "object" && !Array.isArray(body)) body = [body];
+
+        const results: any[] = [];
+        for (const item of body) {
+            const firstName = item?.firstName ?? item?.displayName ?? '';
+            if (!firstName) {
+                results.push({ entry: item, ok: false, error: "firstName required" });
+                continue;
+            }
+            const phoneNumbers: string[] = (item?.phoneNumbers ?? []).map((p: any) =>
+                typeof p === "string" ? p : (p?.address ?? p?.value)
+            ).filter(Boolean);
+            const emails: string[] = (item?.emails ?? []).map((e: any) =>
+                typeof e === "string" ? e : (e?.address ?? e?.value)
+            ).filter(Boolean);
+
+            const r = await ContactsLib.addNativeContactIfMissing({
+                firstName,
+                lastName: item?.lastName ?? '',
+                phoneNumbers,
+                emails
+            });
+            results.push({ entry: item, ...r });
+        }
+
+        return new Success(ctx, { data: results }).send();
     }
 }

@@ -1501,6 +1501,31 @@ class BlueBubblesServer extends EventEmitter {
         this.logger.info(
             `New Message from ${newMessage.isFromMe ? 'You' : obfuscatedHandle(newMessage.handle?.id)}, ${newMessage.contentString()}`);
 
+        // Auto-import every incoming sender into the macOS Address Book (which iCloud-syncs
+        // to all the operator's devices). Required for OF Meta-traffic at scale: every cold
+        // lead becomes a real Contact, which means "Share Automatically: Contacts Only"
+        // mode auto-fires the Share Name & Photo card without any per-conversation prompt.
+        if (!newMessage.isFromMe && newMessage.handle?.id) {
+            try {
+                const handle = newMessage.handle.id;
+                const isEmail = handle.includes("@");
+                const r = await (await import("@server/api/lib/ContactsLib")).ContactsLib
+                    .addNativeContactIfMissing({
+                        firstName: handle,
+                        lastName: "(iMessage Lead)",
+                        phoneNumbers: isEmail ? [] : [handle],
+                        emails: isEmail ? [handle] : []
+                    });
+                if (r.created) {
+                    this.logger.info(`Auto-imported lead Contact: ${obfuscatedHandle(handle)}`);
+                } else if (!r.ok) {
+                    this.logger.debug(`Auto-import failed for ${obfuscatedHandle(handle)}: ${r.error}`);
+                }
+            } catch (err: any) {
+                this.logger.debug(`Auto-import threw for ${obfuscatedHandle(newMessage.handle?.id)}: ${err?.message ?? err}`);
+            }
+        }
+
         // Manually send the message to the socket so we can serialize it with
         // all the extra data
         this.httpService.socketServer.emit(
